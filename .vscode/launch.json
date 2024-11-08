@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "app1/debug",
+      "request": "launch",
+      "type": "dart",
+      "cwd": "apps/membership_app1",
+      "program": "lib/main.dart",
+      // "args": ["--dart-define=FLAVOR=dev", "--dart-define=PREVIEW=true"],
+      "flutterMode": "debug",
+    },
+    {
+      "name": "app2/debug",
+      "request": "launch",
+      "type": "dart",
+      "cwd": "apps/membership_app2",
+      "program": "lib/main.dart",
+      // "args": ["--dart-define=FLAVOR=dev", "--dart-define=LOCALHOST=true"],
+      "flutterMode": "debug",
+    },
+  ]
+}
