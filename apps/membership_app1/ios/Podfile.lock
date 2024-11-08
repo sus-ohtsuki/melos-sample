@@ -19,10 +19,13 @@ PODS:
   - "GoogleUtilities/NSData+zlib (8.0.2)":
     - GoogleUtilities/Privacy
   - GoogleUtilities/Privacy (8.0.2)
+  - package_info_plus (0.4.5):
+    - Flutter
 
 DEPENDENCIES:
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
+  - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
 
 SPEC REPOS:
   trunk:
@@ -36,6 +39,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_core/ios"
   Flutter:
     :path: Flutter
+  package_info_plus:
+    :path: ".symlinks/plugins/package_info_plus/ios"
 
 SPEC CHECKSUMS:
   Firebase: cf1b19f21410b029b6786a54e9764a0cacad3c99
@@ -44,6 +49,7 @@ SPEC CHECKSUMS:
   FirebaseCoreInternal: 5c2b016f06a96fbf20d9b443459f80427a827d7b
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
+  package_info_plus: c0502532a26c7662a62a356cebe2692ec5fe4ec4
 
 PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
 
