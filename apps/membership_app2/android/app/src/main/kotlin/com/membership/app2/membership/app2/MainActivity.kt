@@ -1,4 +1,4 @@
-package com.membership_app2.membership_app2
+package com.membership.app2.membership.app2
 
 import io.flutter.embedding.android.FlutterActivity
 

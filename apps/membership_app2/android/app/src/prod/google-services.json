@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "564650652343",
+    "project_id": "melos-sample",
+    "storage_bucket": "melos-sample.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:564650652343:android:f33436d6be81dd19a11332",
+        "android_client_info": {
+          "package_name": "com.membership.app1.membership.app1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmvLAEzqU_af5Qu1gGg026w86nvom65q4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:564650652343:android:ed76cf58c75bce9fa11332",
+        "android_client_info": {
+          "package_name": "com.membership.app2.membership.app2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmvLAEzqU_af5Qu1gGg026w86nvom65q4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
