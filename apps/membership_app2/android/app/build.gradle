@@ -5,6 +5,25 @@ plugins {
     id "dev.flutter.flutter-gradle-plugin"
 }
 
+def dartDefines = [:];
+if (project.hasProperty('dart-defines')) {
+    dartDefines = dartDefines + project.property('dart-defines')
+        .split(',')
+        .collectEntries { entry ->
+            def pair = new String(entry.decodeBase64(), 'UTF-8').split('=')
+            pair.length == 2 ? [(pair.first()): pair.last()] : [:]
+        }
+}
+
+task copySources(type: Copy) {
+    from "src/${dartDefines.flavor}/res"
+    into "src/main/res"
+}
+
+tasks.whenTaskAdded { task ->
+    task.dependsOn copySources
+}
+
 android {
     namespace = "com.membership_app2.membership_app2"
     compileSdk = flutter.compileSdkVersion
@@ -20,20 +39,21 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.membership_app2.membership_app2"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        applicationId "${dartDefines.appId}"
+        if(dartDefines.flavor == "dev") {
+            resValue "string", "app_name", "dev." + "MEM 2"
+        } else {
+            resValue "string", "app_name", "MEM 2"
+        }
     }
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.debug
         }
     }
