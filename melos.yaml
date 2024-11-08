@@ -3,3 +3,76 @@ name: melos_sample
 packages:
   - apps/**
   - packages/*
+
+scripts:
+  build_runner:
+    description: dart run build_runner
+    run: dart run build_runner build --delete-conflicting-outputs
+    exec:
+      orderDependents: true
+    packageFilters:
+      dirExists: lib
+      dependsOn: build_runner
+
+  build_runner:watch:
+    exec: dart run build_runner watch --delete-conflicting-outputs
+    description: dart run build_runner watch
+    packageFilters:
+      dirExists: lib
+      dependsOn: build_runner
+
+  analyze:
+    run: flutter analyze --no-fatal-infos
+    description: flutter analyze
+    exec:
+      concurrency: 1
+    packageFilters:
+      flutter: true
+      dirExists: lib
+
+  dart_code_linter:
+    exec: dart run dart_code_linter:metrics analyze lib --no-fatal-warnings
+    description: dart run dart_code_linter:metrics
+    packageFilters:
+      dependsOn: dart_code_linter
+
+  format:
+    exec: dart format -o none --set-exit-if-changed .
+    description: dart run format
+
+  format:fix:
+    exec: dart format -o write .
+    description: dart run format
+
+  import_sorter:
+    exec: dart run import_sorter:main --exit-if-changed
+    packageFilters:
+      dependsOn: import_sorter
+
+  import_sorter:fix:
+    exec: dart run import_sorter:main
+    packageFilters:
+      dependsOn: import_sorter
+
+  lint:
+    run: |
+      melos run format &&
+        melos run import_sorter &&
+        melos run analyze &&
+        melos run dart_code_linter
+    description: run format & import_sort & analyze, dart_code_linter
+
+  lint:fix:
+    run: |
+      melos run format:fix &&
+        melos run import_sorter:fix
+    description: auto fix lint errors
+
+  test:
+    run: flutter test
+    exec:
+      failFast: true
+    description: run test
+    packageFilters:
+      flutter: true
+      dirExists: test
