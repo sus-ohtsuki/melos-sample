@@ -42,6 +42,8 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
+/android/app/src/main/res/mipmap-*/ic_launcher.png
+
 /android/app/google-services.json
 
 /ios/Flutter/Dart-Defines.xcconfig
