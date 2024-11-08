@@ -1,5 +1,8 @@
 plugins {
     id "com.android.application"
+    // START: FlutterFire Configuration
+    id 'com.google.gms.google-services'
+    // END: FlutterFire Configuration
     id "kotlin-android"
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id "dev.flutter.flutter-gradle-plugin"
@@ -15,17 +18,26 @@ if (project.hasProperty('dart-defines')) {
         }
 }
 
+task selectGoogleServicesJson(type: Copy) {
+    from "src/${dartDefines.flavor}/google-services.json"
+    into './'
+}
+
 task copySources(type: Copy) {
+    dependsOn selectGoogleServicesJson
     from "src/${dartDefines.flavor}/res"
     into "src/main/res"
 }
 
 tasks.whenTaskAdded { task ->
+    if (task.name == 'processDebugGoogleServices' || task.name == 'processReleaseGoogleServices') {
+        task.dependsOn selectGoogleServicesJson
+    }
     task.dependsOn copySources
 }
 
 android {
-    namespace = "com.membership_app1.membership_app1"
+    namespace = "com.membership.app1.membership.app1"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -39,7 +51,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.membership_app1.membership_app1"
+        applicationId = "com.membership.app1.membership.app1"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
