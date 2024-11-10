@@ -27,11 +27,9 @@ migrate_working_dir/
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
-.packages
 .pub-cache/
 .pub/
-build/
-.metadata
+/build/
 
 # Symbolication related
 app.*.symbols
@@ -43,17 +41,3 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-
-**/ios/Flutter/DartDefines.xcconfig
-
-**/.private_keys/*
-!*.secret
-
-.env.dev
-.env
-
-# FVM Version Cache
-.fvm/
-
-# melos
-pubspec_overrides.yaml

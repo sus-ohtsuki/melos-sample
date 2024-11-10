@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:membership_app1/view/page/home_page.dart';
 
 class App extends StatelessWidget {
