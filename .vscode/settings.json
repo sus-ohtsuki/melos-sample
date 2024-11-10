@@ -13,4 +13,7 @@
     ".gitignore": ".gitattributes, .gitmodules, .gitmessage, .mailmap, .git-blame*",
     "pubspec.yaml": ".flutter-plugins, .packages, .dart_tool, .flutter-plugins-dependencies, .metadata, .packages, pubspec.lock"
   },
+  "cSpell.words": [
+    "widgetbook"
+  ],
 }

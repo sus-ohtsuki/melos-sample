@@ -2,6 +2,14 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "widget/app_design",
+      "request": "launch",
+      "type": "dart",
+      "cwd": "packages/widget/app_design",
+      "program": "lib/widgetbook.dart",
+      "flutterMode": "debug",
+    },
+    {
       "name": "app1/dev",
       "request": "launch",
       "type": "dart",
