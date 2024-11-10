@@ -136,6 +136,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.2"
+  curved_navigation_bar:
+    dependency: transitive
+    description:
+      name: curved_navigation_bar
+      sha256: bb4ab128fcb6f4a9f0f1f72d227db531818b20218984789777f049fcbf919279
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.6"
   dart_code_linter:
     dependency: "direct dev"
     description:
@@ -588,6 +596,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
+  widget:
+    dependency: "direct main"
+    description:
+      path: "../../packages/widget"
+      relative: true
+    source: path
+    version: "0.0.1"
   win32:
     dependency: transitive
     description:

@@ -5,11 +5,13 @@ class AppFilledButton extends StatelessWidget {
   const AppFilledButton({
     super.key,
     this.color,
+    this.width,
     required this.text,
     required this.onPressed,
   });
 
   final Color? color;
+  final double? width;
   final String text;
   final void Function()? onPressed;
 
@@ -21,7 +23,7 @@ class AppFilledButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
-        minimumSize: const Size(double.infinity, 70),
+        minimumSize: Size(width ?? double.infinity, 70),
       ),
       onPressed: onPressed,
       child: Text(text),
