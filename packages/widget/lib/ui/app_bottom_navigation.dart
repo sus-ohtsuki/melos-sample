@@ -12,14 +12,14 @@ class AppBottomNavigation extends StatelessWidget {
     return CurvedNavigationBar(
       items: const <Widget>[
         _Icon(icon: Icons.home),
-        _Icon(icon: Icons.person_2_outlined),
+        _Icon(icon: Icons.person),
         _Icon(icon: Icons.add),
         _Icon(icon: Icons.chat_outlined),
         _Icon(icon: Icons.favorite),
       ],
       index: 2,
-      color: Theme.of(context).primaryColor,
-      buttonBackgroundColor: Theme.of(context).primaryColor,
+      color: Theme.of(context).colorScheme.primary,
+      buttonBackgroundColor: Theme.of(context).colorScheme.primary,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       animationCurve: Curves.easeInOut,
       onTap: (value) {},
