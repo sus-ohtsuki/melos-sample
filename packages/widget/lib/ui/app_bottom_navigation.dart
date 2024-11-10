@@ -22,7 +22,6 @@ class AppBottomNavigation extends StatelessWidget {
       buttonBackgroundColor: Theme.of(context).primaryColor,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       animationCurve: Curves.easeInOut,
-      animationDuration: const Duration(milliseconds: 600),
       onTap: (value) {},
     );
   }
