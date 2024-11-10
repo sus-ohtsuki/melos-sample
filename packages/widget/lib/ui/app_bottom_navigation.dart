@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class AppBottomNavigation extends StatelessWidget {
