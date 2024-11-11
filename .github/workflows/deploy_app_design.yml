@@ -6,11 +6,6 @@ on:
       - main
   workflow_dispatch:
 
-env:
-  SERVER_IP: ${{ secrets.XSERVER_IP }}
-  SERVER_USER: ${{ secrets.XSERVER_USER }}
-  SSH_KEY: ${{ secrets.XSERVER_SSH_KEY }}
-
 permissions:
   contents: read
 
@@ -22,6 +17,12 @@ jobs:
     timeout-minutes: 20
 
     steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github
+            packages/widget
+
       - uses: dorny/paths-filter@v3
         id: filter
         with:
@@ -30,40 +31,27 @@ jobs:
             widget-changes:
               - 'packages/widget/**'
 
-      - if: steps.filter.outputs.widget-changes == 'true'
-        uses: actions/checkout@v4
-        with:
-          sparse-checkout: |
-            .github
-            packages/widget
-
       - name: Set Up Melos
-        if: steps.filter.outputs.widget-changes == 'true'
+        if: github.event_name == 'workflow_dispatch' || steps.filter.outputs.widget-changes == 'true'
         uses: ./.github/actions/set_up_melos
         with:
           working-directory: ./
 
       - name: Install dependencies
-        if: steps.filter.outputs.widget-changes == 'true'
+        if: github.event_name == 'workflow_dispatch' || steps.filter.outputs.widget-changes == 'true'
         working-directory: packages/widget/app_design
         run: flutter pub get
 
       - name: Run Flutter build App Design
-        if: steps.filter.outputs.widget-changes == 'true'
+        if: github.event_name == 'workflow_dispatch' || steps.filter.outputs.widget-changes == 'true'
         working-directory: packages/widget/app_design
-        run: flutter build web
-
-      - name: Set up SSH Key
-        if: steps.filter.outputs.widget-changes == 'true'
-        run: echo "$SSH_KEY" > key && chmod 600 key
+        run: flutter build web --target=lib/widgetbook.dart
 
       - name: Deploy App Design
-        if: steps.filter.outputs.widget-changes == 'true'
-        run: |
-          rsync -avuzr \
-            -e "ssh -i key \
-            -o UserKnownHostsFile=/dev/null \
-            -o StrictHostKeyChecking=no \
-            -p 10022" \
-            --delete build/web/ \
-            $SERVER_USER@$SERVER_IP:/home/$SERVER_USER/usc-design.net/public_html/melos_sample_ui_catalog/
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.XSERVER_HOST }}
+          username: ${{ secrets.XSERVER_FTP_USER }}
+          password: ${{ secrets.XSERVER_FTP_PASSWORD }}
+          local-dir: ./packages/widget/app_design/build/web/
+          server-dir: /ucs-design.net/public_html/melos_sample_ui_catalog/
