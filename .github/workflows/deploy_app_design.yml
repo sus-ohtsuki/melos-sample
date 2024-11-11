@@ -1,0 +1,69 @@
+name: Deploy App Design
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  SERVER_IP: ${{ secrets.XSERVER_IP }}
+  SERVER_USER: ${{ secrets.XSERVER_USER }}
+  SSH_KEY: ${{ secrets.XSERVER_SSH_KEY }}
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-app-design:
+    runs-on: ubuntu-latest
+    env:
+      TZ: 'Asia/Tokyo'
+    timeout-minutes: 20
+
+    steps:
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          token: ${{ github.token }}
+          filters: |
+            widget-changes:
+              - 'packages/widget/**'
+
+      - if: steps.filter.outputs.widget-changes == 'true'
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github
+            packages/widget
+
+      - name: Set Up Melos
+        if: steps.filter.outputs.widget-changes == 'true'
+        uses: ./.github/actions/set_up_melos
+        with:
+          working-directory: ./
+
+      - name: Install dependencies
+        if: steps.filter.outputs.widget-changes == 'true'
+        working-directory: packages/widget/app_design
+        run: flutter pub get
+
+      - name: Run Flutter build App Design
+        if: steps.filter.outputs.widget-changes == 'true'
+        working-directory: packages/widget/app_design
+        run: flutter build web
+
+      - name: Set up SSH Key
+        if: steps.filter.outputs.widget-changes == 'true'
+        run: echo "$SSH_KEY" > key && chmod 600 key
+
+      - name: Deploy App Design
+        if: steps.filter.outputs.widget-changes == 'true'
+        run: |
+          rsync -avuzr \
+            -e "ssh -i key \
+            -o UserKnownHostsFile=/dev/null \
+            -o StrictHostKeyChecking=no \
+            -p 10022" \
+            --delete build/web/ \
+            $SERVER_USER@$SERVER_IP:/home/$SERVER_USER/usc-design.net/public_html/melos_sample_ui_catalog/
