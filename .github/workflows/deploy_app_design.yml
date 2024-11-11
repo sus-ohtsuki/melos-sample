@@ -48,6 +48,7 @@ jobs:
         run: flutter build web --target=lib/widgetbook.dart
 
       - name: Deploy App Design
+        if: github.event_name == 'workflow_dispatch' || steps.filter.outputs.widget-changes == 'true'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.XSERVER_HOST }}
