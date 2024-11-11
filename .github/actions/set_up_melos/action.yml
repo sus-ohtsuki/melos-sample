@@ -1,0 +1,33 @@
+name: Set Up Melos
+description: |
+  This action sets up a Melos environment.
+inputs:
+  working-directory:
+    description: |
+      The working directory to run the Flutter commands in.
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: Detect FVM Flutter Version
+      id: flutter_version
+      shell: bash
+      run: echo "flutter_version=$(cat .fvmrc | jq -r .flutter)" >> $GITHUB_OUTPUT
+      working-directory: ${{ inputs.working-directory }}
+
+    - name: Install Flutter SDK
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: ${{ steps.flutter_version.outputs.flutter_version }}
+
+    - name: Show Flutter version
+      run: flutter --version
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+
+    - name: Set up melos
+      run: |
+        dart pub global activate melos
+        melos bootstrap
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
