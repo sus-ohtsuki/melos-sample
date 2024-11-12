@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:core/model/app_package.dart';
 import 'package:core/repository/package_info_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:widget/ui/app_bottom_navigation.dart';
 import 'package:widget/ui/button/app_filled_button.dart';
 
 class HomePage extends ConsumerWidget {
@@ -19,7 +18,6 @@ class HomePage extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('Home'),
       ),
-      bottomNavigationBar: const AppBottomNavigation(),
       body: FutureBuilder<AppPackage>(
         future: ref.watch(fetchAppPackageInfoProvider.future),
         builder: (context, appPackage) {
